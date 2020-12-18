@@ -92,30 +92,28 @@ class local_tdmmodnotify_mailer {
      */
     protected function mail($recipient) {
         $recipientuser = core_user::get_user($recipient->userid);
-
+		
         $substitutions = (object) array(
             'firstname' => $recipient->userfirstname,
             'signoff'   => generate_email_signoff(),
             'baseurl'   => new moodle_url('/course/view.php'),
         );
         $substitutions->notifications = $recipient->build_content($substitutions);
-
-        $message     = get_string('templatemessage', 'local_tdmmodnotify', $substitutions);
-        $messagehtml = text_to_html($message, false, false, true);
-
-        $message = (object) array(
-            'component' => 'local_tdmmodnotify',
-            'name'      => 'digest',
-
-            'userfrom' => core_user::get_noreply_user(),
-            'userto'   => $recipientuser,
-
-            'subject'           => get_string('templatesubject', 'local_tdmmodnotify'),
-            'smallmessage'      => $message,
-            'fullmessage'       => $message,
-            'fullmessageformat' => FORMAT_PLAIN,
-            'fullmessagehtml'   => $messagehtml,
-        );
-        message_send($message);
+		
+		$str = get_string('templatemessage', 'local_tdmmodnotify', $substitutions);
+		$messagehtml = text_to_html($str, false, false, true);
+		
+		$message = new \core\message\message();
+		$message->name = "digest";
+		$message->component = 'local_tdmmodnotify';
+        $message->userfrom = core_user::get_noreply_user();
+		$message->userto = $recipientuser;
+		
+		$message->subject = get_string('templatesubject', 'local_tdmmodnotify');
+		$message->fullmessageformat = FORMAT_MARKDOWN;
+		$message->fullmessage = $str;
+		$message->notification = 1; 
+		
+        $messageid = message_send($message);
     }
 }
