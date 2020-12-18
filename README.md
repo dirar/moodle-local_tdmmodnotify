@@ -40,3 +40,13 @@ Installation
 1. Copy the zip file to your server
 2. Extract the zip file and move the ````tdmmodnotify```` directory to your Moodle's ````local```` directory
 3. Browse to Site Administration -> Notifications and allow the database upgrades to execute
+
+Configuration
+-------------
+1. Allow plugin to send notification to students: 
+    Site administration -> Users -> Permissions -> Define roles -> Students -> Edit -> under Capability -> "TDM: module modification notification"  allow "Receive course modification digest notification"
+2. Allow the same for Teachers
+3. Update notification preferences: Site administration -> Messaging -> Notification settings. Under Default notification preferences
+	  -> Course modification digest notification Permit email and check online & offline check boxes
+
+  
