@@ -28,13 +28,6 @@ Requirements
 
 * Moodle 2.6+, as we make use of the new observer system for consuming events.
 
-Building
---------
-
-1. Clone this repository, and ````cd```` into it
-2. Execute ````make```` to generate a zip file containing the plugin
-3. Upload to the ````moodle.org```` plugins site
-
 Installation
 -------------
 1. Copy the zip file to your server
